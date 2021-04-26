@@ -22,4 +22,12 @@
   <a href="https://github.com/TaiStudio/Noa">
     <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=TaiStudio&repo=Noa&theme=dark&border_radius=10" />
   </a>
+  <a href="https://github.com/LeGitHubDeTai/TwitchChat">
+    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=LeGitHubDeTai&repo=TwitchChat&theme=dark&border_radius=10" />
+  </a>
+  <br/>
+  <br/>
+  <a href="https://github.com/LeGitHubDeTai/github-to-discord">
+    <img align="center" src="https://github-readme-stats.vercel.app/api/pin/?username=LeGitHubDeTai&repo=github-to-discord&theme=dark&border_radius=10" />
+  </a>
 </p>
