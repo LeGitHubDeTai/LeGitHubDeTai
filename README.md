@@ -21,7 +21,6 @@
 
 I am a Full Stack Developer <img src="https://media0.giphy.com/media/UQsHPXWUijXGwdEGeZ/giphy.gif" width="30"> from France 🇫🇷.
 
-- 👋 Hi, I’m @LeGitHubDeTai
 - 👀 I’m interested in technologies
 - 📫 How to reach me <tai.studio@outlook.fr>
 
