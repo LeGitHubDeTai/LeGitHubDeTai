@@ -60,7 +60,10 @@ I am a Full Stack Developer <img src="https://media0.giphy.com/media/UQsHPXWUijX
 
 ### :writing_hand: My Favorite Projects:
 - [AnimeBack](https://github.com/LeGitHubDeTai/AnimeBack)
+- [github-to-discord](https://github.com/LeGitHubDeTai/github-to-discord)
 - [Lyna](https://github.com/TaiStudio/Lyna)
 - [Sofia](https://github.com/TaiStudio/Sofia)
 - [Asterius](https://lyna.netlify.app/asterius)
+- [ScreenWebSite](https://github.com/LeGitHubDeTai/ScreenWebSite)
 - [Quiche](https://twitter.com/tetsuyuquiche)
+- [Trenton](https://github.com/TaiStudio/Trenton)
