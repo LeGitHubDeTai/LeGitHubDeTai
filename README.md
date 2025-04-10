@@ -1,70 +1,83 @@
-<div id="header" align="center">
-  <img src="https://media2.giphy.com/media/JKo6P5QyuFkuhLlfVq/giphy.gif" width="100"/>
-</div>
-<p id="badges" align="center">
-  <a href="https://www.linkedin.com/in/tai-tetsuyuki-ab2600204"><img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"></a>
-  <a href="https://www.youtube.com/@TaiTetsuyuki"><img src="https://img.shields.io/badge/Youtube-red?style=for-the-badge&logo=youtube&logoColor=white" alt="Youtube Badge"></a>
-</p>
-
-<h1 align="center">
-  Hi, I'm Tai Tetsuyuki
-  <img src="https://media4.giphy.com/media/w1OBpBd7kJqHrJnJ13/giphy.gif" width="40px"/>
-</h1>
+<h1 align="center">Salut 👋, moi c’est Tai Tetsuyuki</h1>
+<h3 align="center">Développeur Full Stack • Passionné d’Open Source • Disponible pour vos projets</h3>
 
 <p align="center">
-  <img src="https://media0.giphy.com/media/ZVik7pBtu9dNS/giphy.gif" />
+  <a href="mailto:tai.studio@outlook.fr">
+    📧 tai.studio@outlook.fr
+  </a>
 </p>
 
 ---
 
-### :man_technologist: About Me :
+## 🧠 Stack & outils
 
-I am a Full Stack Developer <img src="https://media0.giphy.com/media/UQsHPXWUijXGwdEGeZ/giphy.gif" width="30"> from France 🇫🇷.
-
-- 👀 I’m interested in technologies
-- 📫 How to reach me <tai.studio@outlook.fr>
-
----
-
-### :hammer_and_wrench: Languages and Tools :
-<div>
-  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-original-wordmark.svg" title="Java" alt="Java" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="React" alt="React" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-plain-wordmark.svg"  title="CSS3" alt="CSS" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" title="HTML5" alt="HTML" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" title="JavaScript" alt="JavaScript" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/firebase/firebase-plain-wordmark.svg" title="Firebase" alt="Firebase" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/gatsby/gatsby-original.svg" title="Gatsby"  alt="Gatsby" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg" title="MySQL"  alt="MySQL" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" title="AWS" alt="AWS" width="40" height="40"/>&nbsp;
-  <img src="https://github.com/devicons/devicon/blob/master/icons/git/git-original-wordmark.svg" title="Git" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/circleci/circleci-plain.svg" title="CircleCI" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" title="Docker" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" title="Github" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-original.svg" title="Heroku" **alt="Git" width="40" height="40"/>&nbsp;
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" title="JQuery" **alt="Git" width="40" height="40"/>
-</div>
+<p align="center">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="40" alt="JavaScript"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="40" alt="TypeScript"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="40" alt="Node.js"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="40" alt="React"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="40" alt="HTML"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="40" alt="CSS"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" width="40" alt="Tailwind"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" width="40" alt="Express"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" width="40" alt="Firebase"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="40" alt="Docker"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="40" alt="Git"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" width="40" alt="Linux"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="40" alt="PostgreSQL"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" width="40" alt="MongoDB"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="40" alt="MySQL"/>
+</p>
 
 ---
 
-### :fire: My Stats :
+## 🇫🇷 À propos
 
-[![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=LeGitHubDeTai&theme=dark&background=000000)](https://git.io/streak-stats)
+💻 **Qui suis-je ?**  
+Développeur **full stack**, passionné par le web, l’open source et les projets bien codés.  
+Je construis des outils accessibles, des projets utiles, et j’adore partager ce que j’apprends.  
+Je suis aussi disponible pour des **sites web, outils custom, ou collaborations** 👨‍💻
 
-[![Github Stats](https://github-readme-stats.vercel.app/api?username=LeGitHubDeTai&show_icons=true&theme=dark&background=000000)](https://github.com/anuraghazra/github-readme-stats)
+🚀 **Mes projets open source :**
+- 🎌 [AnimeBack](https://github.com/LeGitHubDeTai/animeback) – Fonds d’écran animés pour Windows 10
+- 🔔 [GitHub 2 Discord](https://github.com/LeGitHubDeTai/github-to-discord) – Notifications de release vers Discord
+- 🔗 [Lyna](https://github.com/TaiStudio/Lyna) – Page de liens tout-en-un
+- 🖼️ [Trenton](https://github.com/TaiStudio/Trenton) – Mini portfolio simple
+- 🌍 [NeoTerra](https://neoterra.taistudio.fr/fr) – Modpack Minecraft avec quêtes et progression
 
-[![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=LeGitHubDeTai&layout=compact&theme=vision-friendly-dark)](https://github.com/anuraghazra/github-readme-stats)
+📬 **Contacte-moi :**  
+📧 **tai.studio@outlook.fr**
 
 ---
 
-### :writing_hand: My Favorite Projects:
-- [AnimeBack](https://github.com/LeGitHubDeTai/AnimeBack)
-- [github-to-discord](https://github.com/LeGitHubDeTai/github-to-discord)
-- [Lyna](https://github.com/TaiStudio/Lyna)
-- [Sofia](https://github.com/TaiStudio/Sofia)
-- [Asterius](https://lyna.netlify.app/asterius)
-- [ScreenWebSite](https://github.com/LeGitHubDeTai/ScreenWebSite)
-- [Quiche](https://twitter.com/tetsuyuquiche)
-- [Trenton](https://github.com/TaiStudio/Trenton)
-- [NeoTerra](https://neoterra.taistudio.fr/)
+## 🇬🇧 About Me
+
+💻 **Who am I?**  
+I’m a **full stack developer** who loves clean code, open source and building useful tools.  
+I enjoy creating accessible apps, sharing knowledge, and helping others build awesome things.  
+I'm currently **available for freelance work or collaborations** 👨‍💻
+
+🚀 **Some of my projects:**
+- 🎌 [AnimeBack](https://github.com/LeGitHubDeTai/animeback) – Animated wallpapers for Windows 10
+- 🔔 [GitHub 2 Discord](https://github.com/LeGitHubDeTai/github-to-discord) – Sends release updates to Discord
+- 🔗 [Lyna](https://github.com/TaiStudio/Lyna) – All your links on one page
+- 🖼️ [Trenton](https://github.com/TaiStudio/Trenton) – A clean little portfolio
+- 🌍 [NeoTerra](https://neoterra.taistudio.fr/) – Full-featured Minecraft modpack
+
+📬 **Reach out!**  
+📧 **tai.studio@outlook.fr**
+
+---
+
+## 📊 Stats GitHub
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=LeGitHubDeTai&show_icons=true&theme=radical" alt="stats github"/>
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=LeGitHubDeTai&layout=compact&theme=radical" alt="langages les plus utilisés"/>
+</p>
+
+---
+
+🧡 **Merci aux sponsors**  
+Ton soutien me permet de continuer à développer et à partager librement.  
+[👉 Me sponsoriser](https://github.com/sponsors/LeGitHubDeTai)
