@@ -33,12 +33,12 @@
 
 ## 🇫🇷 À propos
 
-💻 **Qui suis-je ?**  
+### 💻 **Qui suis-je ?**  
 Développeur **full stack**, passionné par le web, l’open source et les projets bien codés.  
 Je construis des outils accessibles, des projets utiles, et j’adore partager ce que j’apprends.  
 Je suis aussi disponible pour des **sites web, outils custom, ou collaborations** 👨‍💻
 
-🚀 **Mes projets open source :**
+### 🚀 **Mes projets open source :**
 - 🎌 [AnimeBack](https://github.com/LeGitHubDeTai/animeback) – Fonds d’écran animés pour Windows 10
 - 🔔 [GitHub 2 Discord](https://github.com/LeGitHubDeTai/github-to-discord) – Notifications de release vers Discord
 - 🔗 [Lyna](https://github.com/TaiStudio/Lyna) – Page de liens tout-en-un
@@ -52,12 +52,12 @@ Je suis aussi disponible pour des **sites web, outils custom, ou collaborations*
 
 ## 🇬🇧 About Me
 
-💻 **Who am I?**  
+### 💻 **Who am I?**  
 I’m a **full stack developer** who loves clean code, open source and building useful tools.  
 I enjoy creating accessible apps, sharing knowledge, and helping others build awesome things.  
 I'm currently **available for freelance work or collaborations** 👨‍💻
 
-🚀 **Some of my projects:**
+### 🚀 **Some of my projects:**
 - 🎌 [AnimeBack](https://github.com/LeGitHubDeTai/animeback) – Animated wallpapers for Windows 10
 - 🔔 [GitHub 2 Discord](https://github.com/LeGitHubDeTai/github-to-discord) – Sends release updates to Discord
 - 🔗 [Lyna](https://github.com/TaiStudio/Lyna) – All your links on one page
