@@ -183,16 +183,16 @@
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=LeGitHubDeTai&theme=tokyonight&hide_border=true&background=0d1117&ring=36BCF7&fire=36BCF7&currStreakLabel=36BCF7" />
 
 <!-- ACTIVITY GRAPH -->
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=LeGitHubDeTai&theme=tokyo-night&hide_border=true&bg_color=0d1117&color=36BCF7&line=36BCF7&point=ffffff&area=true&area_color=36BCF7" width="100%"/>
+<img src="https://raw.githubusercontent.com/LeGitHubDeTai/LeGitHubDeTai/graph/activity-graph.svg" width="100%"/>
 
 <!-- TROPHÉES -->
-<img src="https://github-profile-trophy.vercel.app/?username=LeGitHubDeTai&theme=tokyonight&no-frame=true&no-bg=true&column=7&margin-w=10&margin-h=10" />
+<img src="https://trophy.ryglcloud.net/?username=LeGitHubDeTai&theme=tokyonight&no-frame=true&no-bg=true&column=7&margin-w=10&margin-h=10" />
 
 <!-- CONTRIBUTION SNAKE (animation) -->
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/LeGitHubDeTai/LeGitHubDeTai/output/github-contribution-grid-snake-dark.svg" />
   <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/LeGitHubDeTai/LeGitHubDeTai/output/github-contribution-grid-snake.svg" />
-  <img alt="github-snake" src="https://raw.githubusercontent.com/LeGitHubDeTai/LeGitHubDeTai/output/github-contribution-grid-snake-dark.svg" />
+  <img alt="github-snake" src="https://raw.githubusercontent.com/LeGitHubDeTai/LeGitHubDeTai/snake/github-contribution-grid-snake-dark.svg" />
 </picture>
 
 </div>
