@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tai Tetsuyuki — Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          mono: ['"Fira Code"', 'monospace'],
+        },
+        colors: {
+          ink: {
+            950: '#05070d',
+            900: '#0a0e17',
+            850: '#0d1117',
+            800: '#111827',
+            700: '#1a2233',
+          },
+          brand: {
+            400: '#7dd3fc',
+            500: '#36BCF7',
+            600: '#0ea5e9',
+          },
+        },
+        animation: {
+          'gradient-x': 'gradient-x 8s ease infinite',
+          'float': 'float 6s ease-in-out infinite',
+          'float-slow': 'float 9s ease-in-out infinite',
+          'pulse-glow': 'pulse-glow 3s ease-in-out infinite',
+          'spin-slow': 'spin 12s linear infinite',
+          'fade-in-up': 'fade-in-up 0.8s ease forwards',
+          'shimmer': 'shimmer 2.5s linear infinite',
+          'blink': 'blink 1s step-end infinite',
+        },
+        keyframes: {
+          'gradient-x': {
+            '0%, 100%': { 'background-position': '0% 50%' },
+            '50%': { 'background-position': '100% 50%' },
+          },
+          'float': {
+            '0%, 100%': { transform: 'translateY(0px)' },
+            '50%': { transform: 'translateY(-20px)' },
+          },
+          'pulse-glow': {
+            '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
+            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+          },
+          'fade-in-up': {
+            '0%': { opacity: '0', transform: 'translateY(20px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          'shimmer': {
+            '0%': { 'background-position': '-1000px 0' },
+            '100%': { 'background-position': '1000px 0' },
+          },
+          'blink': {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '0' },
+          },
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html, body { background: #05070d; }
+  body { font-family: 'Inter', sans-serif; color: #e6edf3; overflow-x: hidden; }
+
+  /* Animated background */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(54, 188, 247, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(54, 188, 247, 0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+
+  /* Glassmorphism card */
+  .glass {
+    background: rgba(13, 17, 23, 0.55);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(54, 188, 247, 0.12);
+  }
+  .glass-strong {
+    background: rgba(13, 17, 23, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(54, 188, 247, 0.18);
+  }
+
+  .card-hover {
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s, box-shadow 0.3s;
+  }
+  .card-hover:hover {
+    transform: translateY(-6px);
+    border-color: rgba(54, 188, 247, 0.5);
+    box-shadow: 0 20px 60px -20px rgba(54, 188, 247, 0.4);
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #7dd3fc 0%, #36BCF7 40%, #a855f7 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient-x 6s ease infinite;
+  }
+
+  /* Cursor for typing */
+  .cursor::after {
+    content: '|';
+    margin-left: 2px;
+    color: #36BCF7;
+    animation: blink 1s step-end infinite;
+    font-weight: 300;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #05070d; }
+  ::-webkit-scrollbar-thumb { background: #1a2233; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #36BCF7; }
+
+  /* Contribution grid cells */
+  .contrib-cell {
+    transition: transform 0.2s, filter 0.2s;
+  }
+  .contrib-cell:hover {
+    transform: scale(1.4);
+    filter: brightness(1.5);
+    z-index: 10;
+    position: relative;
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Radial gauge ring */
+  .ring-progress {
+    transition: stroke-dashoffset 1.5s ease-out;
+  }
+
+  /* Shimmer border */
+  .border-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .border-shimmer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    background: linear-gradient(120deg, transparent 20%, rgba(54,188,247,0.6) 50%, transparent 80%);
+    background-size: 200% 100%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: shimmer 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Tilt effect container */
+  .tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+
+  /* Status dot pulse */
+  .status-dot {
+    position: relative;
+  }
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    background: #22c55e;
+    opacity: 0.6;
+    animation: pulse-glow 2s ease-in-out infinite;
+    z-index: -1;
+  }
+
+  /* Marquee skills */
+  .marquee {
+    mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+  }
+  .marquee-track {
+    animation: marquee 40s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Nav blur */
+  .nav-blur {
+    background: rgba(5, 7, 13, 0.75);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  /* Timeline line */
+  .timeline-line {
+    background: linear-gradient(180deg, #36BCF7 0%, #a855f7 50%, transparent 100%);
+  }
+
+  /* Icon buttons */
+  .icon-btn {
+    transition: all 0.25s ease;
+  }
+  .icon-btn:hover {
+    transform: translateY(-3px) scale(1.1);
+  }
+
+  /* Number counter */
+  .counter {
+    font-variant-numeric: tabular-nums;
+  }
+</style>
+</head>
+
+<body class="relative min-h-screen">
+
+  <!-- ═══════════════ BACKGROUND LAYERS ═══════════════ -->
+  <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+  <div class="glow-orb bg-brand-500/20 w-[500px] h-[500px] -top-40 -left-40 animate-pulse-glow"></div>
+  <div class="glow-orb bg-purple-500/15 w-[600px] h-[600px] top-1/3 -right-60 animate-pulse-glow" style="animation-delay: 1.5s;"></div>
+  <div class="glow-orb bg-brand-500/10 w-[400px] h-[400px] bottom-0 left-1/3 animate-pulse-glow" style="animation-delay: 3s;"></div>
+
+  <!-- ═══════════════ TOP NAV ═══════════════ -->
+  <nav class="fixed top-0 inset-x-0 z-50 nav-blur border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <a href="#top" class="flex items-center gap-2 group">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center font-bold text-ink-950 shadow-lg shadow-brand-500/30 group-hover:scale-110 transition-transform">
+          T
+        </div>
+        <span class="font-bold tracking-tight">tai<span class="text-brand-500">.studio</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-1 text-sm">
+        <a href="#about" class="px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">À propos</a>
+        <a href="#stack" class="px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">Stack</a>
+        <a href="#projects" class="px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">Projets</a>
+        <a href="#dashboard" class="px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">Dashboard</a>
+        <a href="#contact" class="px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition">Contact</a>
+      </div>
+      <a href="#contact" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-500 text-ink-950 font-semibold text-sm hover:bg-brand-400 transition shadow-lg shadow-brand-500/25">
+        <i data-lucide="mail" class="w-4 h-4"></i>
+        <span class="hidden sm:inline">Me contacter</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <header id="top" class="relative z-10 pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
+      <div>
+        <div class="flex items-center gap-3 mb-6 animate-fade-in-up">
+          <span class="flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-gray-300">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            Disponible pour missions freelance
+          </span>
+          <span class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-medium text-gray-300">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-500"></i>
+            France · UTC+1
+          </span>
+        </div>
+
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.05] mb-6">
+          Salut, moi c'est<br/>
+          <span class="text-gradient">Tai Tetsuyuki</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-gray-400 mb-2 font-mono h-8">
+          <span id="typing" class="cursor"></span>
+        </p>
+
+        <p class="text-base sm:text-lg text-gray-500 max-w-2xl mt-6 leading-relaxed">
+          Développeur <strong class="text-white">Full Stack</strong> & <strong class="text-white">Designer UI/UX</strong>. Je construis des expériences numériques élégantes, performantes et accessibles — en combinant la rigueur du code à la sensibilité du design.
+        </p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a href="#projects" class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 text-ink-950 font-semibold hover:shadow-2xl hover:shadow-brand-500/40 transition-all">
+            Voir mes projets
+            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+          <a href="https://github.com/sponsors/LeGitHubDeTai" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass hover:bg-white/5 transition font-semibold">
+            <i data-lucide="heart" class="w-4 h-4 text-pink-400"></i>
+            Sponsoriser
+          </a>
+        </div>
+
+        <!-- Social row -->
+        <div class="mt-10 flex items-center gap-3">
+          <span class="text-xs uppercase tracking-widest text-gray-500 font-mono">Retrouve-moi</span>
+          <div class="h-px flex-1 max-w-[60px] bg-white/10"></div>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/LeGitHubDeTai" target="_blank" class="icon-btn w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/5">
+              <i data-lucide="github" class="w-4 h-4"></i>
+            </a>
+            <a href="https://linkedin.com/in/tai-tetsuyuki" target="_blank" class="icon-btn w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/5">
+              <i data-lucide="linkedin" class="w-4 h-4"></i>
+            </a>
+            <a href="https://twitch.tv/taistudio" target="_blank" class="icon-btn w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/5">
+              <i data-lucide="twitch" class="w-4 h-4"></i>
+            </a>
+            <a href="https://discord.gg/taistudio" target="_blank" class="icon-btn w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/5">
+              <i data-lucide="message-circle" class="w-4 h-4"></i>
+            </a>
+            <a href="mailto:contact@taistudio.fr" class="icon-btn w-10 h-10 rounded-lg glass flex items-center justify-center hover:bg-white/5">
+              <i data-lucide="mail" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: mini dashboard panel -->
+      <div class="relative">
+        <div class="absolute -inset-4 bg-gradient-to-r from-brand-500/20 to-purple-500/20 rounded-3xl blur-2xl opacity-60 animate-pulse-glow"></div>
+
+        <div class="relative glass-strong rounded-3xl p-6 border-shimmer">
+          <!-- Top bar -->
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-2">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <span class="text-xs font-mono text-gray-500">~/tai.studio/profile</span>
+          </div>
+
+          <!-- Profile -->
+          <div class="flex items-center gap-4 mb-6">
+            <div class="relative">
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-500 to-purple-500 flex items-center justify-center text-2xl font-black text-ink-950">
+                T
+              </div>
+              <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-ink-850 status-dot"></div>
+            </div>
+            <div>
+              <div class="font-bold text-lg">Tai Tetsuyuki</div>
+              <div class="text-xs text-gray-500 font-mono">@LeGitHubDeTai</div>
+            </div>
+          </div>
+
+          <!-- Mini stats -->
+          <div class="grid grid-cols-3 gap-2 mb-6">
+            <div class="rounded-xl bg-white/[0.03] border border-white/5 p-3 text-center">
+              <div class="text-xl font-bold text-brand-500 counter" data-target="512">0</div>
+              <div class="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Stars</div>
+            </div>
+            <div class="rounded-xl bg-white/[0.03] border border-white/5 p-3 text-center">
+              <div class="text-xl font-bold text-purple-400 counter" data-target="184">0</div>
+              <div class="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Followers</div>
+            </div>
+            <div class="rounded-xl bg-white/[0.03] border border-white/5 p-3 text-center">
+              <div class="text-xl font-bold text-green-400 counter" data-target="1247">0</div>
+              <div class="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Commits</div>
+            </div>
+          </div>
+
+          <!-- Radar-ish languages -->
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-400 font-mono">TypeScript</span>
+              <span class="text-gray-500">42%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-brand-500 to-brand-400 rounded-full" style="width: 42%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-400 font-mono">React / Next</span>
+              <span class="text-gray-500">28%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full" style="width: 28%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-400 font-mono">Node / Backend</span>
+              <span class="text-gray-500">18%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-green-500 to-emerald-400 rounded-full" style="width: 18%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-gray-400 font-mono">Autres</span>
+              <span class="text-gray-500">12%</span>
+            </div>
+            <div class="h-1.5 rounded-full bg-white/5 overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-yellow-500 to-orange-400 rounded-full" style="width: 12%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════ MARQUEE SKILLS ═══════════════ -->
+  <section class="relative z-10 py-10 border-y border-white/5 overflow-hidden marquee">
+    <div class="marquee-track flex items-center gap-12 whitespace-nowrap w-max">
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="code-2" class="w-6 h-6 text-brand-500"></i> TypeScript</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="atom" class="w-6 h-6 text-cyan-400"></i> React</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="triangle" class="w-6 h-6 text-white"></i> Next.js</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="server" class="w-6 h-6 text-green-500"></i> Node.js</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="wind" class="w-6 h-6 text-sky-400"></i> Tailwind</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="container" class="w-6 h-6 text-blue-400"></i> Docker</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="box" class="w-6 h-6 text-blue-500"></i> Kubernetes</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="database" class="w-6 h-6 text-blue-300"></i> PostgreSQL</span>
+      <span class="text-gray-700">◆</span>
+      <!-- duplicate -->
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="code-2" class="w-6 h-6 text-brand-500"></i> TypeScript</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="atom" class="w-6 h-6 text-cyan-400"></i> React</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="triangle" class="w-6 h-6 text-white"></i> Next.js</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="server" class="w-6 h-6 text-green-500"></i> Node.js</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="wind" class="w-6 h-6 text-sky-400"></i> Tailwind</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="container" class="w-6 h-6 text-blue-400"></i> Docker</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="box" class="w-6 h-6 text-blue-500"></i> Kubernetes</span>
+      <span class="text-gray-700">◆</span>
+      <span class="flex items-center gap-3 text-2xl font-bold text-gray-600"><i data-lucide="database" class="w-6 h-6 text-blue-300"></i> PostgreSQL</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section id="about" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+    <div class="text-center mb-14">
+      <span class="text-brand-500 text-sm font-mono uppercase tracking-widest">01 — À propos</span>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mt-3">Ce qui me définit</h2>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4">
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 rounded-xl bg-brand-500/15 flex items-center justify-center mb-4">
+          <i data-lucide="layers" class="w-6 h-6 text-brand-500"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Architecture</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Je conçois des architectures robustes, scalables et maintenables pour des projets qui grandissent.</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center mb-4">
+          <i data-lucide="palette" class="w-6 h-6 text-purple-400"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Design</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Chaque interface est pensée pour être moderne, fluide et intuitive, du pixel au composant.</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 rounded-xl bg-green-500/15 flex items-center justify-center mb-4">
+          <i data-lucide="globe-2" class="w-6 h-6 text-green-400"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Open Source</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Je contribue activement à l'écosystème, parce que le code se construit aussi ensemble.</p>
+      </div>
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="w-12 h-12 rounded-xl bg-yellow-500/15 flex items-center justify-center mb-4">
+          <i data-lucide="rocket" class="w-6 h-6 text-yellow-400"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Collaboration</h3>
+        <p class="text-sm text-gray-500 leading-relaxed">Disponible pour du freelance, des collaborations long-terme et des projets ambitieux.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ STACK ═══════════════ -->
+  <section id="stack" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+    <div class="text-center mb-14">
+      <span class="text-brand-500 text-sm font-mono uppercase tracking-widest">02 — Stack</span>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mt-3">Outils & technologies</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <!-- Frontend -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-brand-500 flex items-center justify-center">
+            <i data-lucide="layout-dashboard" class="w-5 h-5 text-ink-950"></i>
+          </div>
+          <div>
+            <h3 class="font-bold">Frontend</h3>
+            <p class="text-xs text-gray-500">Interfaces & animations</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="code-2" class="w-3.5 h-3.5 text-blue-400"></i> TypeScript</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="braces" class="w-3.5 h-3.5 text-yellow-400"></i> JavaScript</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="atom" class="w-3.5 h-3.5 text-cyan-400"></i> React</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="triangle" class="w-3.5 h-3.5 text-white"></i> Next.js</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="wind" class="w-3.5 h-3.5 text-sky-400"></i> Tailwind</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="file-code" class="w-3.5 h-3.5 text-orange-400"></i> HTML/CSS</span>
+        </div>
+      </div>
+
+      <!-- Backend -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center">
+            <i data-lucide="server" class="w-5 h-5 text-ink-950"></i>
+          </div>
+          <div>
+            <h3 class="font-bold">Backend & Data</h3>
+            <p class="text-xs text-gray-500">APIs & bases de données</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="hexagon" class="w-3.5 h-3.5 text-green-500"></i> Node.js</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="route" class="w-3.5 h-3.5 text-white"></i> Express</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="database" class="w-3.5 h-3.5 text-blue-400"></i> PostgreSQL</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="leaf" class="w-3.5 h-3.5 text-green-400"></i> MongoDB</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="database" class="w-3.5 h-3.5 text-orange-400"></i> MySQL</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="flame" class="w-3.5 h-3.5 text-yellow-400"></i> Firebase</span>
+        </div>
+      </div>
+
+      <!-- DevOps -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <i data-lucide="terminal" class="w-5 h-5 text-ink-950"></i>
+          </div>
+          <div>
+            <h3 class="font-bold">DevOps & Outils</h3>
+            <p class="text-xs text-gray-500">Infra & productivité</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="container" class="w-3.5 h-3.5 text-blue-400"></i> Docker</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="box" class="w-3.5 h-3.5 text-blue-500"></i> K8s</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="git-branch" class="w-3.5 h-3.5 text-orange-400"></i> Git</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="terminal-square" class="w-3.5 h-3.5 text-yellow-400"></i> Linux</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="package" class="w-3.5 h-3.5 text-orange-500"></i> pnpm</span>
+          <span class="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/[0.03] border border-white/5"><i data-lucide="workflow" class="w-3.5 h-3.5 text-red-400"></i> n8n</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROJECTS ═══════════════ -->
+  <section id="projects" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+    <div class="text-center mb-14">
+      <span class="text-brand-500 text-sm font-mono uppercase tracking-widest">03 — Projets</span>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mt-3">Projets phares</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- AnimeBack -->
+      <a href="https://github.com/LeGitHubDeTai/animeback" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-pink-500/20 rounded-full blur-3xl group-hover:bg-pink-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-pink-500/15 flex items-center justify-center">
+            <i data-lucide="film" class="w-6 h-6 text-pink-400"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">AnimeBack</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Fonds d'écran animés pour Windows 10.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Electron</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Node</span>
+        </div>
+      </a>
+
+      <!-- Lyna -->
+      <a href="https://github.com/TaiStudio/Lyna" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-500/20 rounded-full blur-3xl group-hover:bg-brand-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-brand-500/15 flex items-center justify-center">
+            <i data-lucide="link-2" class="w-6 h-6 text-brand-500"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Lyna</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Page de liens tout-en-un personnalisable.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Next.js</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">TS</span>
+        </div>
+      </a>
+
+      <!-- GitHub 2 Discord -->
+      <a href="https://github.com/LeGitHubDeTai/github-to-discord" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/20 rounded-full blur-3xl group-hover:bg-indigo-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-indigo-500/15 flex items-center justify-center">
+            <i data-lucide="bell-ring" class="w-6 h-6 text-indigo-400"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">GitHub 2 Discord</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Notifications de releases vers Discord.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Node</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Webhooks</span>
+        </div>
+      </a>
+
+      <!-- NeoTerra -->
+      <a href="https://neoterra.taistudio.fr/fr" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl group-hover:bg-emerald-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center">
+            <i data-lucide="pickaxe" class="w-6 h-6 text-emerald-400"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">NeoTerra</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Modpack Minecraft avec quêtes & progression.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Minecraft</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Modding</span>
+        </div>
+      </a>
+
+      <!-- Trenton -->
+      <a href="https://github.com/TaiStudio/Trenton" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-gray-500/20 rounded-full blur-3xl group-hover:bg-gray-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+            <i data-lucide="feather" class="w-6 h-6 text-white"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Trenton</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Portfolio minimaliste et épuré.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">HTML</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">CSS</span>
+        </div>
+      </a>
+
+      <!-- Octavia / Sofia -->
+      <a href="https://lyna.taistudio.fr/taistudio" target="_blank" class="group glass rounded-2xl p-6 card-hover relative overflow-hidden">
+        <div class="absolute -top-10 -right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition"></div>
+        <div class="flex items-start justify-between mb-4">
+          <div class="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-6 h-6 text-purple-400"></i>
+          </div>
+          <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-500 group-hover:text-brand-500 group-hover:-translate-y-1 group-hover:translate-x-1 transition"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Octavia / Sofia</h3>
+        <p class="text-sm text-gray-500 leading-relaxed mb-4">Projets UI/UX expérimentaux.</p>
+        <div class="flex flex-wrap gap-1.5">
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">UI</span>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-white/5 text-gray-400 font-mono">Design</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════ DASHBOARD ═══════════════ -->
+  <section id="dashboard" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto reveal">
+    <div class="text-center mb-14">
+      <span class="text-brand-500 text-sm font-mono uppercase tracking-widest">04 — Dashboard</span>
+      <h2 class="text-4xl sm:text-5xl font-extrabold mt-3">Activité en temps réel</h2>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-6">
+
+      <!-- Github Stats -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-bold flex items-center gap-2"><i data-lucide="github" class="w-4 h-4 text-brand-500"></i> GitHub Stats</h3>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-green-500/15 text-green-400 font-mono">● live</span>
+        </div>
+        <div class="space-y-4">
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-400">Commits</span>
+            <span class="font-mono font-semibold counter" data-target="1247">0</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-400">Pull Requests</span>
+            <span class="font-mono font-semibold counter" data-target="89">0</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-400">Issues closes</span>
+            <span class="font-mono font-semibold counter" data-target="156">0</span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-gray-400">Stars reçues</span>
+            <span class="font-mono font-semibold counter" data-target="512">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Streak -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-bold flex items-center gap-2"><i data-lucide="flame" class="w-4 h-4 text-orange-400"></i> Streak</h3>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-orange-500/15 text-orange-400 font-mono">🔥 hot</span>
+        </div>
+        <div class="text-center py-2">
+          <div class="relative inline-block">
+            <svg class="w-32 h-32 -rotate-90" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="52" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="none"/>
+              <circle id="streak-ring" cx="60" cy="60" r="52" stroke="url(#grad-streak)" stroke-width="8" fill="none" stroke-linecap="round"
+                stroke-dasharray="326.7" stroke-dashoffset="326.7" class="ring-progress"/>
+              <defs>
+                <linearGradient id="grad-streak" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#36BCF7"/>
+                  <stop offset="100%" stop-color="#a855f7"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <div class="text-3xl font-extrabold text-gradient">42</div>
+              <div class="text-[10px] text-gray-500 uppercase tracking-wider">jours</div>
+            </div>
+          </div>
+        </div>
+        <p class="text-center text-xs text-gray-500 mt-4">Record : <strong class="text-white">78 jours</strong></p>
+      </div>
+
+      <!-- Languages donut -->
+      <div class="glass rounded-2xl p-6 card-hover">
+        <div class="flex items-center justify-between mb-5">
+          <h3 class="font-bold flex items-center gap-2"><i data-lucide="pie-chart" class="w-4 h-4 text-purple-400"></i> Langages</h3>
+          <span class="text-[10px] px-2 py-1 rounded-full bg-purple-500/15 text-purple-400 font-mono">top 4</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="relative w-24 h-24 shrink-0">
+            <svg viewBox="0 0 42 42" class="w-full h-full -rotate-90">
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="#36BCF7" stroke-width="6" stroke-dasharray="42 100" stroke-dashoffset="0"/>
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="#a855f7" stroke-width="6" stroke-dasharray="28 100" stroke-dashoffset="-42"/>
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="#22c55e" stroke-width="6" stroke-dasharray="18 100" stroke-dashoffset="-70"/>
+              <circle cx="21" cy="21" r="15.915" fill="none" stroke="#f59e0b" stroke-width="6" stroke-dasharray="12 100" stroke-dashoffset="-88"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="text-xs font-mono text-gray-400">TS</span>
+            </div>
+          </div>
+          <div class="flex-1 space-y-2 text-xs">
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-sm bg-brand-500"></span> TypeScript <span class="ml-auto text-gray-500 font-mono">42%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-sm bg-purple-500"></span> React <span class="ml-auto text-gray-500 font-mono">28%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-sm bg-green-500"></span> Node <span class="ml-auto text-gray-500 font-mono">18%</span></div>
+            <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-sm bg-yellow-500"></span> Autres <span class="ml-auto text-gray-500 font-mono">12%</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contribution calendar -->
+    <div class="mt-6 glass rounded-2xl p-6 card-hover">
+      <div class="flex items-center justify-between mb-5">
+        <h3 class="font-bold flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4 text-brand-500"></i> Contributions (52 semaines)</h3>
+        <div class="flex items-center gap-1 text-xs text-gray-500">
+          Moins
+          <span class="w-3 h-3 rounded-sm bg-white/5"></span>
+          <span class="w-3 h-3 rounded-sm bg-brand-500/30"></span>
+          <span class="w-3 h-3 rounded-sm bg-brand-500/60"></span>
+          <span class="w-3 h-3 rounded-sm bg-brand-500"></span>
+          Plus
+        </div>
+      </div>
+      <div id="contrib-grid" class="overflow-x-auto">
+        <!-- generated by JS -->
+      </div>
+    </div>
+
+    <!-- Timeline of recent activity -->
+    <div class="mt-6 glass rounded-2xl p-6 card-hover">
+      <h3 class="font-bold flex items-center gap-2 mb-6"><i data-lucide="activity" class="w-4 h-4 text-green-400"></i> Activité récente</h3>
+      <div class="relative pl-6 space-y-5">
+        <div class="absolute left-2 top-2 bottom-2 w-px timeline-line"></div>
+
+        <div class="relative">
+          <div class="absolute -left-[18px] top-1 w-3 h-3 rounded-full bg-brand-500 ring-4 ring-brand-500/20"></div>
+          <p class="text-sm"><strong class="text-white">Push</strong> vers <span class="text-brand-500 font-mono">Lyna/main</span></p>
+          <p class="text-xs text-gray-500 mt-1">il y a 2h · feat: refactor link editor UI</p>
+        </div>
+        <div class="relative">
+          <div class="absolute -left-[18px] top-1 w-3 h-3 rounded-full bg-purple-500 ring-4 ring-purple-500/20"></div>
+          <p class="text-sm"><strong class="text-white">Release</strong> <span class="text-purple-400 font-mono">animeback v2.4.0</span></p>
+          <p class="text-xs text-gray-500 mt-1">il y a 8h · Nouveaux effets de particules</p>
+        </div>
+        <div class="relative">
+          <div class="absolute -left-[18px] top-1 w-3 h-3 rounded-full bg-green-500 ring-4 ring-green-500/20"></div>
+          <p class="text-sm"><strong class="text-white">Merge PR</strong> #42 dans <span class="text-green-400 font-mono">github-to-discord</span></p>
+          <p class="text-xs text-gray-500 mt-1">hier · fix: gestion des webhooks expirés</p>
+        </div>
+        <div class="relative">
+          <div class="absolute -left-[18px] top-1 w-3 h-3 rounded-full bg-yellow-500 ring-4 ring-yellow-500/20"></div>
+          <p class="text-sm"><strong class="text-white">Contribution</strong> Open Source</p>
+          <p class="text-xs text-gray-500 mt-1">il y a 3 jours · docs: traduction FR de la doc</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section id="contact" class="relative z-10 py-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto reveal">
+    <div class="glass-strong rounded-3xl p-8 sm:p-12 text-center relative overflow-hidden border-shimmer">
+      <div class="absolute -top-24 -right-24 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-24 -left-24 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl"></div>
+
+      <div class="relative">
+        <span class="text-brand-500 text-sm font-mono uppercase tracking-widest">05 — Contact</span>
+        <h2 class="text-4xl sm:text-5xl font-extrabold mt-3 mb-4">Construisons <span class="text-gradient">ensemble</span></h2>
+        <p class="text-gray-400 max-w-xl mx-auto mb-8">Une idée, un projet, une envie de collaborer ? Écris-moi, je réponds sous 48h.</p>
+
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+          <a href="mailto:contact@taistudio.fr" class="group inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-brand-500 text-ink-950 font-semibold hover:bg-brand-400 transition">
+            <i data-lucide="mail" class="w-4 h-4"></i> contact@taistudio.fr
+          </a>
+          <a href="https://taistudio.fr" target="_blank" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl glass hover:bg-white/5 transition font-semibold">
+            <i data-lucide="globe" class="w-4 h-4"></i> taistudio.fr
+          </a>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-2">
+          <a href="https://github.com/LeGitHubDeTai" target="_blank" class="icon-btn w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/5" title="GitHub"><i data-lucide="github" class="w-5 h-5"></i></a>
+          <a href="https://linkedin.com/in/tai-tetsuyuki" target="_blank" class="icon-btn w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/5" title="LinkedIn"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+          <a href="https://twitch.tv/taistudio" target="_blank" class="icon-btn w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/5" title="Twitch"><i data-lucide="twitch" class="w-5 h-5"></i></a>
+          <a href="https://discord.gg/taistudio" target="_blank" class="icon-btn w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/5" title="Discord"><i data-lucide="message-circle" class="w-5 h-5"></i></a>
+          <a href="https://instagram.com" target="_blank" class="icon-btn w-11 h-11 rounded-xl glass flex items-center justify-center hover:bg-white/5" title="Instagram"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ SUPPORT ═══════════════ -->
+  <section class="relative z-10 pb-16 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto text-center reveal">
+    <div class="glass rounded-2xl p-6">
+      <div class="flex items-center justify-center gap-2 mb-2 text-pink-400">
+        <i data-lucide="heart" class="w-5 h-5"></i>
+        <h3 class="font-bold text-white">Soutenez mon travail</h3>
+      </div>
+      <p class="text-sm text-gray-500 mb-5">Votre soutien me permet de continuer à développer et partager librement.</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="https://github.com/sponsors/LeGitHubDeTai" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-yellow-500 text-ink-950 font-bold text-sm hover:bg-yellow-400 transition shadow-lg shadow-yellow-500/20">
+          <i data-lucide="star" class="w-4 h-4"></i> Sponsoriser
+        </a>
+        <a href="https://github.com/LeGitHubDeTai?tab=followers" target="_blank" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg glass hover:bg-white/5 font-semibold text-sm">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Suivre
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="relative z-10 border-t border-white/5 py-8 px-4 text-center">
+    <p class="text-xs text-gray-500 font-mono">
+      © 2025 <span class="text-white">Tai Tetsuyuki</span> · Fait avec
+      <i data-lucide="heart" class="w-3 h-3 inline text-pink-500"></i>
+      à Paris · <span class="text-brand-500">tai.studio</span>
+    </p>
+  </footer>
+
+<script>
+  /* ═══════════════ LUCIDE ICONS ═══════════════ */
+  lucide.createIcons();
+
+  /* ═══════════════ TYPING ANIMATION ═══════════════ */
+  const phrases = [
+    'Full Stack Developer',
+    'UI/UX Designer',
+    'Open Source Enthusiast',
+    'Freelance & Collaborations',
+  ];
+  const typingEl = document.getElementById('typing');
+  let phraseIdx = 0, charIdx = 0, isDeleting = false;
+
+  function type() {
+    const phrase = phrases[phraseIdx];
+    if (isDeleting) {
+      charIdx--;
+    } else {
+      charIdx++;
+    }
+    typingEl.textContent = phrase.slice(0, charIdx);
+
+    let delay = isDeleting ? 40 : 80;
+    if (!isDeleting && charIdx === phrase.length) {
+      delay = 1600;
+      isDeleting = true;
+    } else if (isDeleting && charIdx === 0) {
+      isDeleting = false;
+      phraseIdx = (phraseIdx + 1) % phrases.length;
+      delay = 300;
+    }
+    setTimeout(type, delay);
+  }
+  type();
+
+  /* ═══════════════ COUNTERS ═══════════════ */
+  const counters = document.querySelectorAll('.counter');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const duration = 1600;
+        const start = performance.now();
+        function update(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target).toLocaleString('fr-FR');
+          if (progress < 1) requestAnimationFrame(update);
+        }
+        requestAnimationFrame(update);
+        counterObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach((c) => counterObserver.observe(c));
+
+  /* ═══════════════ STREAK RING ═══════════════ */
+  const ring = document.getElementById('streak-ring');
+  const circumference = 2 * Math.PI * 52;
+  ring.style.strokeDasharray = circumference;
+  ring.style.strokeDashoffset = circumference;
+  setTimeout(() => {
+    ring.style.strokeDashoffset = circumference * (1 - 42 / 100);
+  }, 400);
+
+  /* ═══════════════ CONTRIBUTION GRID ═══════════════ */
+  const grid = document.getElementById('contrib-grid');
+  const weeks = 52;
+  const daysPerWeek = 7;
+  const fragment = document.createDocumentFragment();
+  const wrapper = document.createElement('div');
+  wrapper.className = 'flex gap-[3px]';
+
+  for (let w = 0; w < weeks; w++) {
+    const col = document.createElement('div');
+    col.className = 'flex flex-col gap-[3px]';
+    for (let d = 0; d < daysPerWeek; d++) {
+      const cell = document.createElement('div');
+      const level = Math.random();
+      let bg = 'bg-white/[0.04]';
+      if (level > 0.85) bg = 'bg-brand-500';
+      else if (level > 0.7) bg = 'bg-brand-500/60';
+      else if (level > 0.5) bg = 'bg-brand-500/30';
+      else if (level > 0.3) bg = 'bg-brand-500/15';
+      cell.className = `contrib-cell w-[10px] h-[10px] rounded-[2px] ${bg}`;
+      cell.title = `${Math.floor(level * 8)} contributions`;
+      col.appendChild(cell);
+    }
+    wrapper.appendChild(col);
+  }
+  fragment.appendChild(wrapper);
+  grid.appendChild(fragment);
+
+  /* ═══════════════ REVEAL ON SCROLL ═══════════════ */
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el));
+
+  /* ═══════════════ TILT ON MINI DASHBOARD ═══════════════ */
+  const tiltCard = document.querySelector('.tilt');
+  if (tiltCard) {
+    tiltCard.addEventListener('mousemove', (e) => {
+      const rect = tiltCard.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      tiltCard.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+    });
+    tiltCard.addEventListener('mouseleave', () => {
+      tiltCard.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+    });
+  }
+
+  /* ═══════════════ SMOOTH SCROLL FOR NAV ═══════════════ */
+  document.querySelectorAll('a[href^="#"]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
